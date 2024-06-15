@@ -14,15 +14,17 @@
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/leepongmin/cloudflare-docker-proxy)
 
 3. 修改 src/index.js 的 const routes 块的内容
+   
    ```js
    const routes = {
-  "docker.your-domain.com": "https://registry-1.docker.io",
-  "quay.your-domain.com": "https://quay.io",
-  "gcr.your-domain.com": "https://k8s.gcr.io",
-  "k8s-gcr.your-domain.com": "https://k8s.gcr.io",
-  "ghcr.your-domain.com": "https://ghcr.io",
-  };
+     "docker.your-domain.com": "https://registry-1.docker.io",
+     "quay.your-domain.com": "https://quay.io",
+     "gcr.your-domain.com": "https://k8s.gcr.io",
+     "k8s-gcr.your-domain.com": "https://k8s.gcr.io",
+     "ghcr.your-domain.com": "https://ghcr.io",
+   };
    ```
+
 ## Config tutorial
 
 1. use cloudflare worker host: only support proxy one registry
