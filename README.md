@@ -8,11 +8,11 @@
 
 ## Deploy
 
-1. fork this project
-2. modify the link of the above button to your fork url
+1. fork 这个项目
+2. 修改Deploy to Cloudflare Workers按钮里面的github仓库为自己仓库的地址
 3. click the button, you will be redirected to the deploy page
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ciiiii/cloudflare-docker-proxy)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/leepongmin/cloudflare-docker-proxy)
 
 ## Config tutorial
 
