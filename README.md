@@ -10,42 +10,38 @@
 
 1. fork 这个项目
 2. 修改Deploy to Cloudflare Workers按钮里面的github仓库为自己仓库的地址
-
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/leepongmin/cloudflare-docker-proxy)
-
 3. 修改 src/index.js 的 const routes 块的内容
    
    ```js
    const routes = {
      "docker.your-domain.com": "https://registry-1.docker.io",
      "quay.your-domain.com": "https://quay.io",
-     "gcr.your-domain.com": "https://k8s.gcr.io",
-     "k8s-gcr.your-domain.com": "https://k8s.gcr.io",
-     "ghcr.your-domain.com": "https://ghcr.io",
+     "registry.your-domain.com": "registry.k8s.io",
    };
    ```
+4. 点击deploy to cloudflare workers进行部署
 
-## Config tutorial
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/leepongmin/cloudflare-docker-proxy)
 
-1. use cloudflare worker host: only support proxy one registry
-   ```javascript
-   const routes = {
-     "${workername}.${username}.workers.dev/": "https://registry-1.docker.io",
-   };
-   ```
-2. use custom domain: support proxy multiple registries route by host
-   - host your domain DNS on cloudflare
-   - add `A` record of xxx.example.com to `192.0.2.1`
-   - deploy this project to cloudflare workers
-   - add `xxx.example.com/*` to HTTP routes of workers
-   - add more records and modify the config as you need
-   ```javascript
-   const routes = {
-     "docker.libcuda.so": "https://registry-1.docker.io",
-     "quay.libcuda.so": "https://quay.io",
-     "gcr.libcuda.so": "https://k8s.gcr.io",
-     "k8s-gcr.libcuda.so": "https://k8s.gcr.io",
-     "ghcr.libcuda.so": "https://ghcr.io",
-   };
+5. 在 Cloudflare 的 DNS 记录里添加 CNAME 指向部署后的 ${workername}.${username}.workers.dev 地址。
+6. 在 Workers 的 HTTP Routes 里，添加 xxx.your-domain.com/* 路由指向 cloudflare-docker-proxy, xxx 就是 docker quay gcr 等
+
+   路由：docker.you-domain.com
+   worker：cloudflare-docker-proxy
+
+   前面写了多少镜像地址，就需要写多少条内容，改变前面的路由名称为xxx.you-domain.com即可
+
+7. docker配置加速地址即可
+   ```bash
+   sudo mkdir -p /etc/docker
+   sudo tee /etc/docker/daemon.json <<-EOF
+   {
+    "registry-mirrors": [
+        "https://xxx.you-domain.com"
+      ]
+   }
+   EOF
+   sudo systemctl daemon-reload
+   sudo systemctl restart docker
    ```
 
