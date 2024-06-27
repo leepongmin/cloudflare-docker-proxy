@@ -13,7 +13,7 @@ const routes = {
   "k8s.leepongmin.xyz": "https://registry.k8s.io",
 
   // staging
-  #"docker-staging.leepongmin.xyz": dockerHub,
+  // "docker-staging.leepongmin.xyz": dockerHub,
 };
 
 function routeByHosts(host) {
