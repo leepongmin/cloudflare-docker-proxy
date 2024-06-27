@@ -3,7 +3,7 @@
 
 1. fork 这个项目
 2. 修改Deploy to Cloudflare Workers按钮里面的github仓库为自己仓库的地址
-3. 修改 src/index.js 的 const routes 块的内容
+3. 修改 src/index.js 的 const routes 块的内容，staging是二级域名，注释掉即可
    
    ```js
    const routes = {
@@ -12,6 +12,9 @@
      "registry.your-domain.com": "registry.k8s.io",
    };
    ```
+
+4. 修改wrangler.toml文件将所有libcuda.so换成自己的域名
+   
 4. 点击deploy to cloudflare workers进行部署
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/leepongmin/cloudflare-docker-proxy)
